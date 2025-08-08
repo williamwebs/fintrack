@@ -1,103 +1,144 @@
+"use client";
+
+import AvatarGroupWithInfo from "@/components/AvatarGroup";
+import StatusBadge from "@/components/ui/StatusBadge";
 import Image from "next/image";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SummaryCard from "@/components/dashbaord/SummaryCard";
+import { summaryCardsData } from "@/data";
+import TransactionTable from "@/components/dashbaord/TransactionTable";
+import { FaCaretDown } from "react-icons/fa";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main>
+      <section className="flex flex-col gap-5">
+        {/* header frame - h2 heading(main heading), active badge, share button, ellipse */}
+        <div className="h-fit md:h-10 w-full flex flex-col items-start gap-2 sm:gap-0 sm:flex-row sm:items-center justify-between">
+          <div className="flex items-center gap-4 w-full sm:w-fit justify-between">
+            <div className="flex items-center gap-1">
+              <h2 className="font-bold text-2xl md:text-[34px] text-primary-black">
+                Wallet Ledger
+              </h2>
+              {/* caret */}
+              <FaCaretDown className={`size-4 sm:size-5 text-primary-black`} />
+            </div>
+            {/* custom badge */}
+            <StatusBadge title="Active" dotColor="bg-active-green" />
+          </div>
+          <div className="flex items-center gap-3 justify-end w-full sm:w-fit">
+            <Popover>
+              <PopoverTrigger>
+                <StatusBadge
+                  title="Share"
+                  className="bg-[#4B8B9F] text-[#020303] cursor-pointer hover:bg-background-secondary transition-colors duration-500"
+                />
+              </PopoverTrigger>
+              <PopoverContent className="max-w-[200px] space-y-2 p-2">
+                {["facebook", "X", "whatsApp", "email"].map((item) => (
+                  <Button
+                    key={item}
+                    className="w-full bg-background-secondary text-primary-black hover:bg-background-secondary/50 cursor-pointer"
+                  >
+                    {item}
+                  </Button>
+                ))}
+              </PopoverContent>
+            </Popover>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <div className="w-9 h-9 border rounded-full flex items-center justify-center cursor-pointer hover:bg-background-secondary transition-colors duration-500">
+              <Popover>
+                <PopoverTrigger>
+                  <Image
+                    src={"/dots-horizontal.svg"}
+                    width={24}
+                    height={24}
+                    alt="ellipse"
+                  />
+                </PopoverTrigger>
+                <PopoverContent className="max-w-[100px]">
+                  Ellipse
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        {/* avatar group & avatar info */}
+        <AvatarGroupWithInfo />
+        {/* tab - overview & transactions
+          - summary h3 heading
+          - overview cards
+          - table (sortable)
+      */}
+        <div className="flex items-center gap-10 w-full">
+          <Tabs defaultValue="overview" className="w-full">
+            <TabsList className="w-full bg-primary-white h-11 rounded-none border-b border-gray-200 p-0 mb-4">
+              <div className="self-end mr-auto">
+                <TabsTrigger
+                  value="overview"
+                  className="text-[15px] rounded-none font-medium text-secondary-black dark:text-muted-foreground
+      px-3 py-1 border-b-2 border-t-0 border-l-0 border-r-0 bg-transparent shadow-none border-transparent
+      data-[state=active]:text-active data-[state=active]:border-b data-[state=active]:shadow-none data-[state=active]:border-[#4B8B9F]
+      transition-colors whitespace-nowrap
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 cursor-pointer"
+                >
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger
+                  value="transactions"
+                  className="text-[15px] rounded-none font-medium text-secondary-black dark:text-muted-foreground
+      px-3 py-1 border-b-2 border-t-0 border-l-0 border-r-0 bg-transparent shadow-none border-transparent
+      data-[state=active]:text-active data-[state=active]:border-b data-[state=active]:shadow-none data-[state=active]:border-[#4B8B9F]
+      transition-colors whitespace-nowrap
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 cursor-pointer"
+                >
+                  Transactions
+                </TabsTrigger>
+              </div>
+            </TabsList>
+            <TabsContent value="overview">
+              {/* summmary section h3 heading, cards */}
+              <section className="space-y-[18px]">
+                <h3 className="text-primary-black text-xl font-bold">
+                  Summary
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-7">
+                  {summaryCardsData.map((card, index) => (
+                    <SummaryCard
+                      key={index}
+                      title={card.title}
+                      value={card.value}
+                      percentage_change={card.percentage_change}
+                    />
+                  ))}
+                </div>
+
+                {/* overview table */}
+                <div className="py-4">
+                  <TransactionTable />
+                </div>
+              </section>
+            </TabsContent>
+            <TabsContent value="transactions">
+              {/* transactions section h3 heading, table */}
+              <section className="space-y-[18px]">
+                <h3 className="text-primary-black text-xl font-bold">
+                  Transactions
+                </h3>
+                <div className="py-4">
+                  <TransactionTable />
+                </div>
+              </section>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </section>
+    </main>
   );
 }
