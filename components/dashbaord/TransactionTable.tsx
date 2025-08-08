@@ -68,23 +68,32 @@ const TransactionTable = () => {
                 >
                   Date{" "}
                   {sortAsc ? (
-                    <FaCaretDown className="ml-1 h-4 w-4" />
+                    <FaCaretDown className="ml-0 h-4 w-4" />
                   ) : (
-                    <FaCaretUp className="ml-1 h-4 w-4" />
+                    <FaCaretUp className="ml-0 h-4 w-4" />
                   )}
                 </Button>
               </TableHead>
               <TableHead className="text-secondary-black font-medium text-[13px] max-w-[122px] min-w-[250px] px-0  ">
-                Remark
+                <span className="flex items-center">
+                  Remark <FaCaretDown className="ml-1 h-4 w-4" />
+                </span>
               </TableHead>
               <TableHead className="text-secondary-black font-medium text-[13px] max-w-[73px] min-w-[150px] px-0  ">
-                Amount
+                <span className="flex items-center">
+                  {" "}
+                  Amount <FaCaretDown className="ml-1 h-4 w-4" />
+                </span>
               </TableHead>
               <TableHead className="text-secondary-black font-medium text-[13px]  max-w-[80px] min-w-[100px] px-0">
-                Currency
+                <span className="flex items-center">
+                  Currency <FaCaretDown className="ml-1 h-4 w-4" />
+                </span>
               </TableHead>
               <TableHead className="text-secondary-black font-medium text-[13px] max-w-[74px] min-w-[70px] px-0   ">
-                Type
+                <span className="flex items-center">
+                  Type <FaCaretDown className="ml-1 h-4 w-4" />
+                </span>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -146,23 +155,37 @@ const TransactionTable = () => {
         {selectedTransaction && (
           <div className="mt-4 space-y-2">
             <p className="text-primary-black font-medium text-2xl">
-              <span className="text-secondary-black font-normal text-base">Date:</span> {selectedTransaction.date}
+              <span className="text-secondary-black font-normal text-base">
+                Date:
+              </span>{" "}
+              {selectedTransaction.date}
             </p>
             <p className="text-primary-black font-medium text-2xl">
-              <span className="text-secondary-black font-normal text-base">Remark:</span> {selectedTransaction.remark}
+              <span className="text-secondary-black font-normal text-base">
+                Remark:
+              </span>{" "}
+              {selectedTransaction.remark}
             </p>
             <p className="text-primary-black font-medium text-2xl">
-              <span className="text-secondary-black font-normal text-base">Amount:</span>{" "}
+              <span className="text-secondary-black font-normal text-base">
+                Amount:
+              </span>{" "}
               {selectedTransaction.amount.toLocaleString("en-US", {
                 style: "currency",
                 currency: selectedTransaction.currency,
               })}
             </p>
             <p className="text-primary-black font-medium text-2xl">
-              <span className="text-secondary-black font-normal text-base">Currency:</span> {selectedTransaction.currency}
+              <span className="text-secondary-black font-normal text-base">
+                Currency:
+              </span>{" "}
+              {selectedTransaction.currency}
             </p>
             <p className="text-primary-black font-medium text-2xl">
-              <span className="text-secondary-black font-normal text-base">Type:</span> {selectedTransaction.type}
+              <span className="text-secondary-black font-normal text-base">
+                Type:
+              </span>{" "}
+              {selectedTransaction.type}
             </p>
           </div>
         )}

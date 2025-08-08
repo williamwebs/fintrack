@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import { SidebarProvider } from "@/context/SidebarContext";
 import { SearchProvider } from "@/context/SearchContext";
 import MainLayout from "@/components/MainLayout";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const publicSans = Public_Sans({
   variable: "--font-public-sans",
@@ -31,8 +33,9 @@ export default function RootLayout({
             <div className="w-full h-full relative font-public-sans">
               {/* fixed Header */}
               <Header />
-
-              <MainLayout>{children}</MainLayout>
+              <Suspense fallback={<Loading/>}>
+                <MainLayout>{children}</MainLayout>
+              </Suspense>
             </div>
           </SearchProvider>
         </SidebarProvider>
